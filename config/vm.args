@@ -1,0 +1,6 @@
+-sname erlbot
+
+-setcookie erlbot_cookie
+-pa
++K true
++A30
