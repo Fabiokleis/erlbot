@@ -1,9 +1,15 @@
-erlbot
-=====
+# erlbot
 
-An OTP application
+aprendendo um pouco de erlang criando um bot de discord....
 
-Build
------
+## Deps
 
-    $ rebar3 compile
+- [cowboy](https://github.com/ninenines/cowboy);
+- [enacl](https://github.com/jlouis/enacl);
+- [jiffy](https://github.com/davisp/jiffy);
+
+compile o jiffy com clang e o enacl com gcc haha..
+## Build
+```shell
+rebar3 compile
+```
