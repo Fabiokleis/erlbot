@@ -32,7 +32,7 @@ read_body(Req0, Acc) ->
         {more, Data, Req} -> read_body(Req, <<Acc/binary, Data/binary>>)
     end.
 
-execute(Req=#{headers := #{<<"x-signature-ed25519">> := SignKey, <<"x-signature-timestamp">> := SignTs}}, Env) ->
+execute(Req=#{method := <<"POST">>, headers := #{<<"x-signature-ed25519">> := SignKey, <<"x-signature-timestamp">> := SignTs}}, Env) ->
     PubKey = cowboy:get_env(erlbot_listener, pub_key),
    
     {ok, RawBody, Req0} = read_body(Req, <<>>),
@@ -44,6 +44,9 @@ execute(Req=#{headers := #{<<"x-signature-ed25519">> := SignKey, <<"x-signature-
 	false -> 
 	    {stop, cowboy_req:reply(401, #{<<"Content-type">> => <<"plain/text">>}, <<"Bad request signature">>, Req0)}
     end;
+
+execute(Req=#{method := <<"GET">>}, Env) ->
+    {ok, Req, Env};
 
 execute(Req, _) ->
     {stop, cowboy_req:reply(400, Req)}.
