@@ -19,7 +19,8 @@ start(_StartType, _StartArgs) ->
     Dispatch = cowboy_router:compile([
         {'_', [
 	       {"/interactions", interactions_handler, []},
-	       {"/", hello_handler, []}
+	       {"/setup", setup_handler, []},
+	       {"/", hello_handler, []} % healthcheck
 	  ]}
     ]),
     {ok, _} = cowboy:start_clear(
