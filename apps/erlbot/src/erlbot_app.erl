@@ -24,9 +24,15 @@ start(_StartType, _StartArgs) ->
     ]),
     {ok, _} = cowboy:start_clear(
 		erlbot_listener,
-		[Port],
-		#{env => #{dispatch => Dispatch, token => Token, app_id => AppId, pub_key => PubKey},
-		middlewares => [cowboy_router, discord_validation_middleware, cowboy_handler]}
+		[Port], 
+		#{
+		  env => #{dispatch => Dispatch, token => Token, app_id => AppId, pub_key => PubKey},
+		  middlewares => [
+				  cowboy_router,
+				  discord_validation_middleware,
+				  cowboy_handler]
+		  %stream_handlers => [cowboy_decompress_h, cowboy_stream_h]
+		}
     ),
     erlbot_sup:start_link().
 
